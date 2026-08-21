@@ -1,0 +1,19 @@
+# Dependencies
+node_modules/
+
+# Playwright artifacts
+playwright-report/
+test-results/
+blob-report/
+playwright/.cache/
+
+# Environment and local planning
+.env
+.env.*
+!.env.example
+IMPLEMENTATION_PLAN.md
+
+# OS/editor files
+.DS_Store
+.idea/
+.vscode/

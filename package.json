@@ -1,0 +1,22 @@
+{
+  "name": "weather-shopper-playwright-assignment",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Playwright and TypeScript UI automation assignment for Weather Shopper.",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "test": "playwright test",
+    "test:smoke": "playwright test --grep @smoke",
+    "test:headed": "playwright test --headed",
+    "test:report": "playwright show-report",
+    "test:install-browsers": "playwright install chromium",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.62.1",
+    "@types/node": "^26.2.0",
+    "typescript": "^7.0.2"
+  }
+}
