@@ -9,6 +9,8 @@
   "scripts": {
     "test": "playwright test",
     "test:smoke": "playwright test --grep @smoke",
+    "test:regression": "playwright test --grep @regression",
+    "test:payment": "playwright test --grep @payment",
     "test:headed": "playwright test --headed",
     "test:report": "playwright show-report",
     "test:install-browsers": "playwright install chromium",

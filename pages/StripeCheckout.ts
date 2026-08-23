@@ -34,4 +34,8 @@ export class StripeCheckout {
   public async toBeOpen(): Promise<void> {
     await expect(this.locateFrame().getByPlaceholder("Email")).toBeVisible();
   }
+
+  public async toHaveInvalidExpiry(): Promise<void> {
+    await expect(this.locateFrame().getByPlaceholder("MM / YY")).toHaveClass(/\binvalid\b/);
+  }
 }

@@ -31,7 +31,7 @@ export class CartPage {
 
   public async toHaveItems(expectedItems: readonly Product[]): Promise<void> {
     const rows = this.locateItemRows();
-    await expect(rows, "Expected exactly two cart item rows.").toHaveCount(expectedItems.length);
+    await expect(rows, `Expected ${expectedItems.length} cart item row(s).`).toHaveCount(expectedItems.length);
 
     for (const [index, expectedItem] of expectedItems.entries()) {
       const row = rows.nth(index);

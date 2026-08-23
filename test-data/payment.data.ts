@@ -13,3 +13,8 @@ export const validPayment: PaymentData = {
   cvc: "123",
   zip: "12345",
 };
+
+export const expiredPayment: PaymentData = {
+  ...validPayment,
+  expiry: "01/20",
+};

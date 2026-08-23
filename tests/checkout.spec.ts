@@ -14,7 +14,7 @@ const rulesByCategory: Record<ShoppingCategory, readonly ProductRule[]> = {
   sunscreens: sunscreenRules,
 };
 
-test("should complete the weather-appropriate purchase @smoke @payment", async ({ page }) => {
+test("should complete the weather-appropriate purchase @smoke @regression @payment", async ({ page }) => {
   const homePage = new HomePage(page);
   const productsPage = new ProductsPage(page);
   const cartPage = new CartPage(page);
