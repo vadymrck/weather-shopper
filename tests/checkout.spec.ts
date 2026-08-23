@@ -41,18 +41,10 @@ test("should complete the weather-appropriate purchase @smoke @payment", async (
     await cartPage.toHaveTotalFor(selectedItems);
   });
 
-  const outcome = await test.step("Submit payment and verify the confirmation outcome", async () => {
+  await test.step("Submit payment and verify the successful confirmation", async () => {
     await cartPage.openStripeCheckout();
     await stripeCheckout.completePayment(validPayment);
     await confirmationPage.toBeOpen();
-
-    const paymentOutcome = await confirmationPage.getOutcome();
-    await confirmationPage.toHaveOutcomeMessage(paymentOutcome);
-    return paymentOutcome;
-  });
-
-  test.info().annotations.push({
-    type: "payment outcome",
-    description: outcome === "PAYMENT SUCCESS" ? "Payment completed." : "Expected simulated payment failure.",
+    await confirmationPage.toHaveSuccessfulPayment();
   });
 });
