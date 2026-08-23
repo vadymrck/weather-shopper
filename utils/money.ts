@@ -1,5 +1,5 @@
 export function parsePrice(value: string): number {
-  const match = value.match(/Price:\s*(?:Rs\.\s*)?(\d+)/i);
+  const match = /Price:\s*(?:Rs\.\s*)?(\d+)/i.exec(value);
 
   if (!match) {
     throw new Error(`Could not parse product price from: "${value}".`);

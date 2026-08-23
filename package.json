@@ -14,11 +14,18 @@
     "test:headed": "playwright test --headed",
     "test:report": "playwright show-report",
     "test:install-browsers": "playwright install chromium",
+    "lint": "eslint . --cache",
+    "lint:fix": "eslint . --fix",
+    "check": "npm run lint && npm run typecheck",
     "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
     "@playwright/test": "^1.62.1",
     "@types/node": "^26.2.0",
-    "typescript": "^7.0.2"
+    "eslint": "^10.9.0",
+    "eslint-plugin-playwright": "^2.11.0",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.67.0"
   }
 }
