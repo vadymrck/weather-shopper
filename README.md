@@ -68,3 +68,9 @@ models/      Shared domain types and shopping rules
 utils/       Pure price and product-selection helpers
 test-data/   Public Stripe test data
 ```
+
+## CI
+
+GitHub Actions runs `npm run check` on every push and pull request to `main`.
+
+Live browser tests run manually through the **Live E2E tests** workflow. This avoids treating the public application's dynamic catalogue and documented simulated payment failures as a required push gate. The workflow uploads the Playwright report and failure artifacts for seven days.
