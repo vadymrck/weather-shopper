@@ -9,6 +9,7 @@ export default defineConfig({
   fullyParallel: false,
   workers: 1,
   retries: 0,
+  forbidOnly: !!process.env.CI,
   reporter: [["list"], ["html", { open: "never" }]],
   use: {
     baseURL:
