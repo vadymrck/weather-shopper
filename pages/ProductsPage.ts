@@ -69,7 +69,6 @@ export class ProductsPage {
   // Assertions
   public async toBeOpen(category: ShoppingCategory): Promise<void> {
     const heading = category === "moisturizers" ? "Moisturizers" : "Sunscreens";
-    await this.page.waitForLoadState("load");
     await expect(this.page.getByRole("heading", { name: heading })).toBeVisible();
   }
 }

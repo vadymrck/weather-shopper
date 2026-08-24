@@ -53,7 +53,6 @@ export class HomePage {
       this.page.waitForURL(expectedPath),
       this.locateCategoryLink(category).click(),
     ]);
-    await this.page.waitForLoadState("load");
   }
 
   // Assertions
