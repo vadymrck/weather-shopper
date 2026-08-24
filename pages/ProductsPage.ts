@@ -30,7 +30,10 @@ export class ProductsPage {
 
     for (let index = 0; index < count; index += 1) {
       const cardText = await cards.nth(index).innerText();
-      const [name] = cardText.split("\n").map((line) => line.trim()).filter(Boolean);
+      const [name] = cardText
+        .split("\n")
+        .map((line) => line.trim())
+        .filter(Boolean);
 
       if (!name) {
         throw new Error(`Could not parse product name from card ${index}.`);
@@ -44,16 +47,26 @@ export class ProductsPage {
 
   public async addProduct(name: string): Promise<void> {
     const card = this.locateProductCard(name);
-    await expect(card, `Expected product card for "${name}" to be visible.`).toHaveCount(1);
+    await expect(
+      card,
+      `Expected product card for "${name}" to be visible.`,
+    ).toHaveCount(1);
     await card.getByRole("button", { name: "Add" }).click();
   }
 
-  public async addCheapestMatchingProducts(rules: readonly ProductRule[]): Promise<Product[]> {
-    const selectedProducts = selectCheapestMatchingProducts(await this.getProducts(), rules);
+  public async addCheapestMatchingProducts(
+    rules: readonly ProductRule[],
+  ): Promise<Product[]> {
+    const selectedProducts = selectCheapestMatchingProducts(
+      await this.getProducts(),
+      rules,
+    );
 
     for (const [index, product] of selectedProducts.entries()) {
       await this.addProduct(product.name);
-      await expect(this.locateCartButton()).toHaveText(`Cart - ${index + 1} item(s)`);
+      await expect(this.locateCartButton()).toHaveText(
+        `Cart - ${index + 1} item(s)`,
+      );
     }
 
     return selectedProducts;
@@ -69,6 +82,8 @@ export class ProductsPage {
   // Assertions
   public async toBeOpen(category: ShoppingCategory): Promise<void> {
     const heading = category === "moisturizers" ? "Moisturizers" : "Sunscreens";
-    await expect(this.page.getByRole("heading", { name: heading })).toBeVisible();
+    await expect(
+      this.page.getByRole("heading", { name: heading }),
+    ).toBeVisible();
   }
 }

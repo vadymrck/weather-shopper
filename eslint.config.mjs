@@ -3,6 +3,7 @@ import { fileURLToPath } from "node:url";
 
 import js from "@eslint/js";
 import { defineConfig } from "eslint/config";
+import eslintConfigPrettier from "eslint-config-prettier";
 import playwright from "eslint-plugin-playwright";
 import tseslint from "typescript-eslint";
 
@@ -46,4 +47,5 @@ export default defineConfig(
       "playwright/no-wait-for-timeout": "error",
     },
   },
+  eslintConfigPrettier,
 );

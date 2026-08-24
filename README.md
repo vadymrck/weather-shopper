@@ -23,24 +23,24 @@ BASE_URL=https://example.test npm test
 
 ## Commands
 
-| Command | Purpose |
-| --- | --- |
-| `npm test` | Run the full suite. |
-| `npm run test:smoke` | Run the critical end-to-end checkout journey. |
-| `npm run test:regression` | Run regression-tagged tests. |
-| `npm run test:payment` | Run tests that open Stripe Checkout. |
-| `npm run test:headed` | Run tests with a visible browser. |
-| `npm run test:report` | Open the latest HTML report. |
-| `npm run lint:fix` | Apply safe ESLint fixes. |
-| `npm run check` | Run linting and type-checking. |
+| Command                   | Purpose                                       |
+| ------------------------- | --------------------------------------------- |
+| `npm test`                | Run the full suite.                           |
+| `npm run test:smoke`      | Run the critical end-to-end checkout journey. |
+| `npm run test:regression` | Run regression-tagged tests.                  |
+| `npm run test:payment`    | Run tests that open Stripe Checkout.          |
+| `npm run test:headed`     | Run tests with a visible browser.             |
+| `npm run test:report`     | Open the latest HTML report.                  |
+| `npm run lint:fix`        | Apply safe ESLint fixes.                      |
+| `npm run check`           | Run formatting, linting, and type-checking.   |
 
 ## Coverage
 
-| Test | Tags | Coverage |
-| --- | --- | --- |
-| `product-selection.spec.ts` | `@regression` | Selects the least expensive required moisturizer and sunscreen products, then verifies cart lines and totals. |
-| `checkout.spec.ts` | `@smoke @regression @payment` | Reads the live temperature, follows the required shopping path, verifies the cart, and requires a successful payment confirmation. |
-| `stripe-validation.spec.ts` | `@regression @payment` | Submits a valid-format card with an expired date and verifies that Stripe keeps checkout open and marks the expiry field invalid. |
+| Test                        | Tags                          | Coverage                                                                                                                           |
+| --------------------------- | ----------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| `product-selection.spec.ts` | `@regression`                 | Selects the least expensive required moisturizer and sunscreen products, then verifies cart lines and totals.                      |
+| `checkout.spec.ts`          | `@smoke @regression @payment` | Reads the live temperature, follows the required shopping path, verifies the cart, and requires a successful payment confirmation. |
+| `stripe-validation.spec.ts` | `@regression @payment`        | Submits a valid-format card with an expired date and verifies that Stripe keeps checkout open and marks the expiry field invalid.  |
 
 ## Design notes
 

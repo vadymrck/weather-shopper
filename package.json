@@ -16,7 +16,9 @@
     "test:install-browsers": "playwright install chromium",
     "lint": "eslint . --cache",
     "lint:fix": "eslint . --fix",
-    "check": "npm run lint && npm run typecheck",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "check": "npm run format:check && npm run lint && npm run typecheck",
     "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
@@ -24,7 +26,9 @@
     "@playwright/test": "^1.62.1",
     "@types/node": "^26.2.0",
     "eslint": "^10.9.0",
+    "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-playwright": "^2.11.0",
+    "prettier": "^3.9.6",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.67.0"
   }

@@ -5,7 +5,9 @@ import { ProductsPage } from "../pages/ProductsPage";
 import { StripeCheckout } from "../pages/StripeCheckout";
 import { expiredPayment } from "../test-data/payment.data";
 
-test("should reject an expired card in Stripe Checkout @regression @payment", async ({ page }) => {
+test("should reject an expired card in Stripe Checkout @regression @payment", async ({
+  page,
+}) => {
   const productsPage = new ProductsPage(page);
   const cartPage = new CartPage(page);
   const stripeCheckout = new StripeCheckout(page);

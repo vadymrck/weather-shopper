@@ -7,5 +7,12 @@
     "noEmit": true,
     "types": ["node", "@playwright/test"]
   },
-  "include": ["playwright.config.ts", "tests/**/*.ts", "pages/**/*.ts", "models/**/*.ts", "utils/**/*.ts", "test-data/**/*.ts"]
+  "include": [
+    "playwright.config.ts",
+    "tests/**/*.ts",
+    "pages/**/*.ts",
+    "models/**/*.ts",
+    "utils/**/*.ts",
+    "test-data/**/*.ts"
+  ]
 }

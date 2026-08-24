@@ -11,7 +11,8 @@ export class HomePage {
   }
 
   private locateCategoryLink(category: ShoppingCategory) {
-    const name = category === "moisturizers" ? "Buy moisturizers" : "Buy sunscreens";
+    const name =
+      category === "moisturizers" ? "Buy moisturizers" : "Buy sunscreens";
     return this.page.getByRole("link", { name });
   }
 
@@ -47,7 +48,8 @@ export class HomePage {
   }
 
   public async openCategory(category: ShoppingCategory): Promise<void> {
-    const expectedPath = category === "moisturizers" ? /\/moisturizer$/ : /\/sunscreen$/;
+    const expectedPath =
+      category === "moisturizers" ? /\/moisturizer$/ : /\/sunscreen$/;
 
     await Promise.all([
       this.page.waitForURL(expectedPath),
@@ -57,6 +59,8 @@ export class HomePage {
 
   // Assertions
   public async toBeOpen(): Promise<void> {
-    await expect(this.page.getByRole("heading", { name: "Current temperature" })).toBeVisible();
+    await expect(
+      this.page.getByRole("heading", { name: "Current temperature" }),
+    ).toBeVisible();
   }
 }

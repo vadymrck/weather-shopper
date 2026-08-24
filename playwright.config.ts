@@ -11,7 +11,8 @@ export default defineConfig({
   retries: 0,
   reporter: [["list"], ["html", { open: "never" }]],
   use: {
-    baseURL: process.env.BASE_URL ?? "https://weathershopper.pythonanywhere.com",
+    baseURL:
+      process.env.BASE_URL ?? "https://weathershopper.pythonanywhere.com",
     browserName: "chromium",
     headless: true,
     viewport: { width: 1280, height: 900 },

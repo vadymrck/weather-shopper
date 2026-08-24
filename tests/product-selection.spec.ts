@@ -5,7 +5,9 @@ import { CartPage } from "../pages/CartPage";
 import { ProductsPage } from "../pages/ProductsPage";
 
 test.describe("Product selection rules", () => {
-  test("should add the cheapest Aloe and Almond moisturizers to the cart @regression", async ({ page }) => {
+  test("should add the cheapest Aloe and Almond moisturizers to the cart @regression", async ({
+    page,
+  }) => {
     const productsPage = new ProductsPage(page);
     const cartPage = new CartPage(page);
 
@@ -14,9 +16,9 @@ test.describe("Product selection rules", () => {
       await productsPage.toBeOpen("moisturizers");
     });
 
-    const selectedItems = await test.step("Add the two cheapest required moisturizers", async () =>
-      productsPage.addCheapestMatchingProducts(moisturizerRules),
-    );
+    const selectedItems =
+      await test.step("Add the two cheapest required moisturizers", async () =>
+        productsPage.addCheapestMatchingProducts(moisturizerRules));
 
     await test.step("Verify moisturizer cart items and total", async () => {
       await productsPage.openCart();
@@ -26,7 +28,9 @@ test.describe("Product selection rules", () => {
     });
   });
 
-  test("should add the cheapest SPF-50 and SPF-30 sunscreens to the cart @regression", async ({ page }) => {
+  test("should add the cheapest SPF-50 and SPF-30 sunscreens to the cart @regression", async ({
+    page,
+  }) => {
     const productsPage = new ProductsPage(page);
     const cartPage = new CartPage(page);
 
@@ -35,9 +39,9 @@ test.describe("Product selection rules", () => {
       await productsPage.toBeOpen("sunscreens");
     });
 
-    const selectedItems = await test.step("Add the two cheapest required sunscreens", async () =>
-      productsPage.addCheapestMatchingProducts(sunscreenRules),
-    );
+    const selectedItems =
+      await test.step("Add the two cheapest required sunscreens", async () =>
+        productsPage.addCheapestMatchingProducts(sunscreenRules));
 
     await test.step("Verify sunscreen cart items and total", async () => {
       await productsPage.openCart();

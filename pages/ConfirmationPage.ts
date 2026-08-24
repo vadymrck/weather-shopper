@@ -18,6 +18,8 @@ export class ConfirmationPage {
 
   public async toHaveSuccessfulPayment(): Promise<void> {
     await expect(this.locateOutcomeHeading()).toHaveText("PAYMENT SUCCESS");
-    await expect(this.page.getByText(/Your payment was successful\./)).toBeVisible();
+    await expect(
+      this.page.getByText(/Your payment was successful\./),
+    ).toBeVisible();
   }
 }

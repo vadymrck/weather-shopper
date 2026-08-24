@@ -36,6 +36,8 @@ export class StripeCheckout {
   }
 
   public async toHaveInvalidExpiry(): Promise<void> {
-    await expect(this.locateFrame().getByPlaceholder("MM / YY")).toHaveClass(/\binvalid\b/);
+    await expect(this.locateFrame().getByPlaceholder("MM / YY")).toHaveClass(
+      /\binvalid\b/,
+    );
   }
 }
