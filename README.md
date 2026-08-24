@@ -47,7 +47,8 @@ BASE_URL=https://example.test npm test
 - Product names and prices are read from the rendered catalogue on every run. The suite does not hard-code today's products or prices.
 - When equal-priced qualifying products exist, the first one in visible catalogue order is selected.
 - Page objects keep locators, actions, and assertions separate. Tests use `test.step()` for meaningful user-flow stages.
-- Locators prefer roles, text, and placeholders. A scoped CSS locator is used only for product cards because the public application exposes no stronger product semantics.
+- Locators prefer roles, text, and placeholders if possible.
+- The suite runs in Chromium only for this take-home scope. Add Firefox and WebKit projects when cross-browser coverage is a product requirement.
 - The suite uses one worker and no global retries. This is deliberate: the target is a public demo with dynamic catalogue data and a hosted payment dependency.
 - Failure artifacts include a screenshot, trace, and video. Run `npm run test:report` to inspect them.
 
@@ -73,4 +74,4 @@ test-data/   Public Stripe test data
 
 GitHub Actions runs `npm run check` on every push and pull request to `main`.
 
-Live browser tests run manually through the **Live E2E tests** workflow. This avoids treating the public application's dynamic catalogue and documented simulated payment failures as a required push gate. The workflow uploads the Playwright report and failure artifacts for seven days.
+Live browser tests run manually through the **Live E2E tests** workflow. This avoids treating the public application's dynamic catalogue and documented simulated payment failures as a required push gate. The workflow uploads the Playwright report and failure artifacts for 7 days.
