@@ -47,10 +47,17 @@ await test.step("Verify the cart before payment", async () => {
 
 - Use Playwright CLI for targeted browser exploration when UI behaviour, requirements, locators, or a failure cause is unknown. It is not a replacement for the Playwright test runner.
 - Use `npx playwright test` to validate repository tests. First read the relevant spec, page object, and report artifacts; use browser exploration only when they do not answer the question.
+- Do not invent UI text, selectors, URLs, or expected behaviour. Use the requirement, existing code, and observed runtime evidence; report any mismatch explicitly.
 - Prefer snapshots, semantic element references, screenshots, traces, console logs, and network inspection over coordinate-based interaction or generated selectors.
 - After exploring a flow, implement or update the page object and spec, then run the smallest relevant test. Do not commit generated code without refactoring it to these conventions.
 - Prefer Playwright CLI for coding agents working in a repository. Use an available browser MCP when persistent, tool-based exploration or an existing authenticated browser session is specifically required.
 - Do not submit payments, create external records, send notifications, or perform other external state changes during exploratory work unless the user explicitly authorizes that action or requests the relevant test execution.
+
+## Failure triage
+
+- Read the terminal failure and report artifacts before changing code. Classify the outcome as a test defect, application defect, external-dependency issue, or expected domain outcome.
+- Preserve the evidence and fix the root cause. Do not hide failures with hard waits, arbitrary timeout increases, weaker assertions, retries, or silent skips.
+- Do not claim a run passed when an external dependency or application defect prevents it. State the observed outcome, the evidence available, and the remaining risk.
 
 ## Execution, tagging, and CI
 
@@ -63,6 +70,7 @@ await test.step("Verify the cart before payment", async () => {
 
 ## Changes and validation
 
+- For non-trivial work, follow this sequence: inspect relevant code, explore unknown behaviour, make the smallest scoped change, run the affected test, run `npm run check`, then report results and remaining risks.
 - Run the smallest relevant tests during development, then run `npm run check` before handoff.
 - Update `README.md` when commands, coverage, prerequisites, CI behaviour, or material design decisions change.
 - Keep changes scoped; do not introduce frameworks, patterns, or dependencies without a current need.
