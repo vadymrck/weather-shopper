@@ -13,17 +13,31 @@ Use these conventions when adding or changing automated tests. Apply them propor
 
 - Use `test.step()` for meaningful business-flow stages, not individual clicks or assertions.
 - Tests state _what_ is being verified. Page objects encapsulate _how_ the UI is used.
+- Keep test control flow and expected values explicit. Calculate expected business values in pure `utils/` helpers before a verification step; assertion methods should verify supplied expectations and return `Promise<void>`.
+- Do not hide cross-page readiness assertions inside an action. After an action opens or redirects to another UI surface, explicitly assert the destination page object's readiness in the spec.
 - Group every page object with `// Locators`, `// Actions`, and `// Assertions` comments.
 - Keep page-object locators `private`; expose only readable, user-meaningful public actions, reads, and assertions.
+- Reuse a private page-object locator when the same UI element is used by both actions and assertions.
 - Prefer composition and small focused page objects over inheritance or large base classes.
 - Keep pure parsing, selection, and calculation logic in `utils/`, separate from Playwright UI code.
 
 Example:
 
 ```ts
+const expectedTotal = calculateProductTotal(selectedItems);
+
 await test.step("Verify the cart before payment", async () => {
   await productsPage.openCart();
+  await cartPage.toBeOpen();
   await cartPage.toHaveItems(selectedItems);
+  await cartPage.toHaveTotal(expectedTotal);
+});
+
+await test.step("Submit payment and verify the successful confirmation", async () => {
+  await cartPage.openStripeCheckout();
+  await stripeCheckout.toBeOpen();
+  await stripeCheckout.toHavePaymentTotal(expectedTotal);
+  await stripeCheckout.completePayment(validPayment);
 });
 ```
 
@@ -33,7 +47,7 @@ await test.step("Verify the cart before payment", async () => {
 - Use `getByTestId` when the application intentionally provides stable test hooks.
 - Use scoped CSS only when semantic locators are unavailable; avoid XPath, deep selectors, positional selectors, and arbitrary `nth-child` paths.
 - Rely on Playwright auto-waiting and web-first assertions. Do not use `waitForTimeout()` or `networkidle` as synchronization.
-- Assert a meaningful readiness marker after navigation or an external UI transition.
+- Assert a meaningful readiness marker after navigation or an external UI transition. Keep that assertion visible in the spec and owned by the destination page object.
 
 ## Test data and dependencies
 
