@@ -76,6 +76,7 @@ await test.step("Submit payment and verify the successful confirmation", async (
 ## Execution, tagging, and CI
 
 - Keep tags purposeful and few, for example `@smoke`, `@regression`, `@api`, and `@payment`. Use the existing tag style consistently.
+- Define tags with Playwright's `tag` test-details property, not as text in the test title. Use a string for one tag and an array for multiple tags.
 - Configure base URL, browsers, reporters, retries, and timeouts centrally in `playwright.config.ts`.
 - Enable parallel execution only after browser state and backend data are isolated. Start with a small worker count and measure reliability.
 - Do not use retries to hide deterministic defects or documented application failures. Investigate the cause and use retries only for a justified transient-risk policy.

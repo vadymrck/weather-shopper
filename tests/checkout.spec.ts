@@ -15,47 +15,49 @@ const rulesByCategory: Record<ShoppingCategory, readonly ProductRule[]> = {
   sunscreens: sunscreenRules,
 };
 
-test("should complete the weather-appropriate purchase @smoke @regression @payment", async ({
-  page,
-}) => {
-  const homePage = new HomePage(page);
-  const productsPage = new ProductsPage(page);
-  const cartPage = new CartPage(page);
-  const stripeCheckout = new StripeCheckout(page);
-  const confirmationPage = new ConfirmationPage(page);
+test(
+  "should complete the weather-appropriate purchase",
+  { tag: ["@smoke", "@regression", "@payment"] },
+  async ({ page }) => {
+    const homePage = new HomePage(page);
+    const productsPage = new ProductsPage(page);
+    const cartPage = new CartPage(page);
+    const stripeCheckout = new StripeCheckout(page);
+    const confirmationPage = new ConfirmationPage(page);
 
-  const category =
-    await test.step("Open the home page and determine the required shopping path", async () => {
-      await homePage.goto();
-      const temperature = await homePage.getTemperature();
-      return homePage.getRequiredCategory(temperature);
+    const category =
+      await test.step("Open the home page and determine the required shopping path", async () => {
+        await homePage.goto();
+        const temperature = await homePage.getTemperature();
+        return homePage.getRequiredCategory(temperature);
+      });
+
+    const selectedItems =
+      await test.step("Add the two cheapest required products", async () => {
+        await homePage.openCategory(category);
+        await productsPage.toBeOpen(category);
+
+        return productsPage.addCheapestMatchingProducts(
+          rulesByCategory[category],
+        );
+      });
+
+    const expectedTotal = calculateProductTotal(selectedItems);
+
+    await test.step("Verify the cart before payment", async () => {
+      await productsPage.openCart();
+      await cartPage.toBeOpen();
+      await cartPage.toHaveItems(selectedItems);
+      await cartPage.toHaveTotal(expectedTotal);
     });
 
-  const selectedItems =
-    await test.step("Add the two cheapest required products", async () => {
-      await homePage.openCategory(category);
-      await productsPage.toBeOpen(category);
-
-      return productsPage.addCheapestMatchingProducts(
-        rulesByCategory[category],
-      );
+    await test.step("Submit payment and verify the successful confirmation", async () => {
+      await cartPage.openStripeCheckout();
+      await stripeCheckout.toBeOpen();
+      await stripeCheckout.toHavePaymentTotal(expectedTotal);
+      await stripeCheckout.completePayment(validPayment);
+      await confirmationPage.toBeOpen();
+      await confirmationPage.toHaveSuccessfulPayment();
     });
-
-  const expectedTotal = calculateProductTotal(selectedItems);
-
-  await test.step("Verify the cart before payment", async () => {
-    await productsPage.openCart();
-    await cartPage.toBeOpen();
-    await cartPage.toHaveItems(selectedItems);
-    await cartPage.toHaveTotal(expectedTotal);
-  });
-
-  await test.step("Submit payment and verify the successful confirmation", async () => {
-    await cartPage.openStripeCheckout();
-    await stripeCheckout.toBeOpen();
-    await stripeCheckout.toHavePaymentTotal(expectedTotal);
-    await stripeCheckout.completePayment(validPayment);
-    await confirmationPage.toBeOpen();
-    await confirmationPage.toHaveSuccessfulPayment();
-  });
-});
+  },
+);
