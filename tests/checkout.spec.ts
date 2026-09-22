@@ -8,6 +8,7 @@ import { HomePage } from "../pages/HomePage";
 import { ProductsPage } from "../pages/ProductsPage";
 import { StripeCheckout } from "../pages/StripeCheckout";
 import { validPayment } from "../test-data/payment.data";
+import { calculateProductTotal } from "../utils/money";
 
 const rulesByCategory: Record<ShoppingCategory, readonly ProductRule[]> = {
   moisturizers: moisturizerRules,
@@ -40,15 +41,19 @@ test("should complete the weather-appropriate purchase @smoke @regression @payme
       );
     });
 
+  const expectedTotal = calculateProductTotal(selectedItems);
+
   await test.step("Verify the cart before payment", async () => {
     await productsPage.openCart();
     await cartPage.toBeOpen();
     await cartPage.toHaveItems(selectedItems);
-    await cartPage.toHaveTotalFor(selectedItems);
+    await cartPage.toHaveTotal(expectedTotal);
   });
 
   await test.step("Submit payment and verify the successful confirmation", async () => {
     await cartPage.openStripeCheckout();
+    await stripeCheckout.toBeOpen();
+    await stripeCheckout.toHavePaymentTotal(expectedTotal);
     await stripeCheckout.completePayment(validPayment);
     await confirmationPage.toBeOpen();
     await confirmationPage.toHaveSuccessfulPayment();

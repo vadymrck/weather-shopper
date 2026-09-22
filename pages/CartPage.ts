@@ -1,7 +1,6 @@
 import { expect, type Page } from "@playwright/test";
 
 import type { Product } from "../models/product";
-import { calculateTotal } from "../utils/money";
 
 export class CartPage {
   public constructor(private readonly page: Page) {}
@@ -51,12 +50,10 @@ export class CartPage {
     }
   }
 
-  public async toHaveTotalFor(items: readonly Product[]): Promise<number> {
-    const expectedTotal = calculateTotal(items.map((item) => item.price));
+  public async toHaveTotal(expectedTotal: number): Promise<void> {
     await expect(
       this.locateTotal(),
       `Expected cart total to equal ${expectedTotal}.`,
     ).toHaveText(`Total: Rupees ${expectedTotal}`);
-    return expectedTotal;
   }
 }

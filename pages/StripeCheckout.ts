@@ -10,6 +10,10 @@ export class StripeCheckout {
     return this.page.frameLocator('iframe[name="stripe_checkout_app"]');
   }
 
+  private locatePayButton() {
+    return this.locateFrame().getByRole("button", { name: /Pay INR/ });
+  }
+
   // Actions
   public async completePayment(payment: PaymentData): Promise<void> {
     const frame = this.locateFrame();
@@ -27,12 +31,19 @@ export class StripeCheckout {
       await zipInput.fill(payment.zip);
     }
 
-    await frame.getByRole("button", { name: /Pay/ }).click();
+    await this.locatePayButton().click();
   }
 
   // Assertions
   public async toBeOpen(): Promise<void> {
     await expect(this.locateFrame().getByPlaceholder("Email")).toBeVisible();
+  }
+
+  public async toHavePaymentTotal(expectedTotal: number): Promise<void> {
+    await expect(
+      this.locatePayButton(),
+      `Expected Stripe payment total to equal ${expectedTotal}.`,
+    ).toHaveText(`Pay INR ₹${expectedTotal.toFixed(2)}`);
   }
 
   public async toHaveInvalidExpiry(): Promise<void> {

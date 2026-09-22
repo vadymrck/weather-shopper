@@ -1,3 +1,5 @@
+import type { Product } from "../models/product";
+
 export function parsePrice(value: string): number {
   const match = /Price:\s*(?:Rs\.\s*)?(\d+)/i.exec(value);
 
@@ -10,4 +12,8 @@ export function parsePrice(value: string): number {
 
 export function calculateTotal(prices: readonly number[]): number {
   return prices.reduce((total, price) => total + price, 0);
+}
+
+export function calculateProductTotal(products: readonly Product[]): number {
+  return calculateTotal(products.map((product) => product.price));
 }
